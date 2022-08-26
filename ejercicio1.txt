@@ -1,0 +1,7 @@
+CREATE TEMPORARY TABLE IF NOT EXISTS historial AS SELECT transaccion.total AS total_sold, proveedor.id AS seller_id, proveedor.nombre AS seller_name, item.id AS idFind, (SELECT IF(EXISTS(SELECT paquete.id FROM paquete WHERE paquete.item_id = idFind), 'producto', 'experiencia')) AS tipo
+FROM transaccion, item, actividad_evento, actividad, proveedor, paquete, entrada
+WHERE transaccion.created BETWEEN '2022-08-01' AND '2022-08-31' AND transaccion.id = item.transaccion_id AND item.evento_id = actividad_evento.id AND actividad_evento.actividad_id = actividad.id AND actividad.proveedor_id = proveedor.id GROUP BY transaccion.total;
+
+SELECT SUM(total_sold) as total_sold, seller_id, seller_name, tipo
+FROM historial
+GROUP BY seller_id;
