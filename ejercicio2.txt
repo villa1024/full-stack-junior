@@ -1,0 +1,1 @@
+Debido a que cada proveedor organiza distintas actividades, podemos obtener cuanto dinero se recaudó en cada actividad realizada.
